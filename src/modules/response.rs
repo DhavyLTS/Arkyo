@@ -41,5 +41,5 @@ impl Response {
     pub fn new() -> Self { Self { headers: None, status: None, body: None } }
     pub fn headers (mut self, headers: HashMap<String, String>) -> Self { self.headers = Some(headers); self }
     pub fn status (mut self, status: Status) -> Self { self.status = Some(status); self }
-    pub fn body (mut self, body: String) -> Self { self.body = Some(body); self }
+    pub fn body (mut self, body: &str) -> Self { self.body = Some(body.to_string()); self }
 }

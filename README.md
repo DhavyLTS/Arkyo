@@ -9,22 +9,30 @@ Arkyo is a simple HTTP server written in Rust, designed to handle incoming reque
 - **Static File Serving**: Serve static files from a specified folder.
 - **Error Handling**: Handle errors gracefully with appropriate HTTP status codes.
 - **Multi-threaded**: Arkyo is built to handle multiple incoming connections concurrently using multi-threading.
+- **Middleware Support**: Apply middleware functions to intercept and modify incoming requests or outgoing responses.
 
 ## Roadmap
 - [x] Static Content
 - [x] Dynamic Routes
+- [x] Middleware Support
 - [ ] Multiform Support
-- [ ] Middleware Support
 ## Usage
 
 1. **Define Routes**: Add routes to the server instance using the `add_route` method.
 ```rust
     server.add_route("/example", Method::Get, handler_function);
 ```
-2. **Set Static Folder**: Optionally, set a folder from which to serve static files using `static_folder` method.
+
+2. **Define Middlewares**: Add Middlewares to the server isntance using `add_middleware` method.
+```rust
+    sever.add_middleware("/path", middleware_function)
+```
+
+3. **Set Static Folder**: Optionally, set a folder from which to serve static files using `static_folder` method.
 ```rust
     server.static_folder("public");
 ```
+
 3. **Start Server**: Begin listening for incoming connections using `listen` method.
 ```rust
     server.listen();
@@ -43,7 +51,7 @@ Arkyo is a simple HTTP server written in Rust, designed to handle incoming reque
         server.add_route("/user/:id", Method::Get, user_handler);
     
         // Set static folder
-        server.static_folder("./static");
+        server.static_folder("/static");
     
         // Start server
         server.listen("127.0.0.1:8080");
@@ -52,13 +60,13 @@ Arkyo is a simple HTTP server written in Rust, designed to handle incoming reque
     fn index_handler(_: Request) -> Response {
         Response::new()
             .status(Status::Ok)
-            .body("Welcome to Arkyo!".to_string())
+            .body("Welcome to Arkyo!")
     }
     
     fn about_handler(_: Request) -> Response {
         Response::new()
             .status(Status::Ok)
-            .body("Arkyo - A simple HTTP server written in Rust.".to_string())
+            .body("Arkyo - A simple HTTP server written in Rust.")
     }
     
     fn user_handler(req: Request) -> Response {
@@ -74,7 +82,7 @@ Arkyo is a simple HTTP server written in Rust, designed to handle incoming reque
 Add arkyo to your Cargo.toml dependencies:
 ```toml
     [dependencies]
-    arkyo = "0.0.5"
+    arkyo = "0.0.6"
 ```
 
 ## Contributing

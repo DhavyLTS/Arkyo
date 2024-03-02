@@ -2,7 +2,7 @@
 name = "arkyo"
 license = "MIT"
 edition = "2021"
-version = "0.0.5"
+version = "0.0.6"
 authors = ["DhavyLTS"]
 description = "arkyo is a library for making HTTP Server"
 
